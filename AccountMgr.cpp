@@ -29,7 +29,7 @@ void AccountMgr::updateFile(string change, double amt, Account* acct){
   }
   //If can't open file
   else{
-    system("clear");
+    clearScreen();
     cout << "Could not open file debtUpdates.txt. Data not saved." << endl;
   }
 }
@@ -37,7 +37,7 @@ void AccountMgr::updateFile(string change, double amt, Account* acct){
 //Save debt to debtList.txt
 void AccountMgr::finishSave(){
 
-  system("clear");
+  clearScreen();
 
   fstream myFile("debtList.txt", ios::out | ios::trunc);
   if(myFile.is_open()){
@@ -59,7 +59,7 @@ void AccountMgr::finishSave(){
 
   }
   else{
-    system("clear");
+    clearScreen();
     cout << "Could not open file debtList.txt. Data not saved." << endl;
   }
 }
@@ -82,7 +82,7 @@ void AccountMgr::import(){
 
   }
   else{
-    system("clear");
+    clearScreen();
     cout << "Could not open file debtList.txt. Data not imported." << endl;
   }
 
@@ -152,7 +152,7 @@ Account* AccountMgr::findAccount(string nameChoice){
 
 void AccountMgr::display(){
   //Clear screen
-  system("clear");
+  clearScreen();
 
   if(numAccounts == 0){ //Handle if no accounts
     cout << "No accounts to display." << endl;
@@ -175,7 +175,7 @@ void AccountMgr::changeDebt(string change){
 
   display();
   cout << "Enter a name from the list: ";
-  cin.ignore(1000,10);
+  cin.ignore(1000,'\n');
   getline(cin, nameChoice);
 
   //Check to see if account name exists

@@ -28,7 +28,7 @@ int main(){
       double amt;
 
       cout << "Enter a name for the account: ";
-      cin.ignore(1000,10);
+      cin.ignore(1000,'\n');
       getline(cin, name);
 
 
@@ -51,19 +51,19 @@ int main(){
       }
 
       mgr->addAccount(name, amt);
-      system("clear");
+      clearScreen();
 
     }
     else if(input == "3"){
 
       mgr->changeDebt("add");
-      system("clear");
+      clearScreen();
 
     }
     else if(input == "4"){
 
       mgr->changeDebt("remove");
-      system("clear");
+      clearScreen();
 
     }
     else if(input == "q" || input == "Q"){
@@ -71,7 +71,7 @@ int main(){
     }
     else{
 
-      system("clear");
+      clearScreen();
       cout << "Invalid menu choice.\n\n";
 
     }
@@ -82,5 +82,5 @@ mgr->finishSave();
 }
 
 //=====TO-DO=====
-//Make update file not repeat
+//Make update file not repeat by calling in main and not in newAccount fxn
 //Add update file functionality for removing accounts

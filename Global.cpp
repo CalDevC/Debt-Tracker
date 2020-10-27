@@ -22,6 +22,10 @@ void stall(){
   cout << "Press enter to continue..." << endl;
   cin.ignore();
   getline(cin, garbage);
+  clearScreen();
+}
+
+void clearScreen(){
   system("clear");
 }
 
@@ -35,7 +39,7 @@ void startSave(){
 
   }
   else{
-    system("clear");
+    clearScreen();
     cout << "Could not open file debtUpdates.txt. Data not saved." << endl;
   }
 }

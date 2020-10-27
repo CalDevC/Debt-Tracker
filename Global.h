@@ -14,6 +14,7 @@ int numAccounts = 0;
 
 //Template functions
 void displayMenu();
+void clearScreen();
 void stall();
 void startSave();
 
