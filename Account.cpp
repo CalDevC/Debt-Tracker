@@ -16,12 +16,9 @@ Account::Account(string name, double amt){
 Account::Account(){
   name = "unknown";
   amtOwed = 0.00;
-  numAccounts++;
 }
 
-Account::~Account(){
-  numAccounts--;
-}
+Account::~Account(){}
 
 string Account::getName(){
   return this->name;

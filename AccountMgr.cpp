@@ -129,6 +129,7 @@ void AccountMgr::removeAccount(Account** head_ref, string n){
 
     //free the memory occupied by removed node
     free(temp1);
+    numAccounts--;
     return;
 
 }

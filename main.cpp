@@ -31,13 +31,14 @@ int main(){
       cin.ignore(1000,'\n');
       getline(cin, name);
 
+      //Check if name already exists if there are other accounts
+      if (numAccounts != 0){
+        while(mgr->findAccount(name) != nullptr){
+          cout << "An account with this name already exists." << endl << "Please enter a different name." << endl;
 
-      //Check if name already exists
-      while(mgr->findAccount(name) != nullptr){
-        cout << "An account with this name already exists." << endl << "Please enter a different name." << endl;
+          getline(cin, name);
 
-        getline(cin, name);
-
+        }
       }
 
       cout << "Enter the amount of debt to apply to the account: ";
