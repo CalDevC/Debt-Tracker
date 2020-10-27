@@ -82,5 +82,5 @@ mgr->finishSave();
 }
 
 //=====TO-DO=====
-//Remove accounts with a debt of 0??
 //Make update file not repeat
+//Add update file functionality for removing accounts

@@ -15,6 +15,8 @@ private:
 public:
   Account();
   Account(string name, double amt);
+  ~Account();
+
   Account* next;
   Account* prev;
 

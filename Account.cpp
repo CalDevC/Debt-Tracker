@@ -19,6 +19,10 @@ Account::Account(){
   numAccounts++;
 }
 
+Account::~Account(){
+  numAccounts--;
+}
+
 string Account::getName(){
   return this->name;
 }

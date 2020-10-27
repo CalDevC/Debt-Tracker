@@ -20,6 +20,7 @@ public:
   void import();
   // Add the new node to the end of the list
   void addAccount(string n, double x);
+  void removeAccount(Account**, string n);
   Account* findAccount(string nameChoice);
   void display();
   void changeDebt(string change);

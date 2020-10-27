@@ -101,9 +101,36 @@ void AccountMgr::addAccount(string n, double x){
       temp = temp->next;
     }
     temp->next = new Account(n, x);
-    temp->prev = temp;
+    temp->next->prev = temp;
     updateFile("new", 0, temp->next);
   }
+}
+
+
+void AccountMgr::removeAccount(Account** head_ref, string n){
+
+  Account* temp1 = findAccount(n);
+
+  //base case
+    if (*head_ref == nullptr || temp1 == nullptr)
+        return;
+
+    //If node to be removed is head node
+    if (*head_ref == temp1)
+        *head_ref = temp1->next;
+
+    //Change next only if node to be removed is not the last node
+    if (temp1->next != nullptr)
+        temp1->next->prev = temp1->prev;
+
+    //Change prev only if node to be removed is not the first node
+    if (temp1->prev != nullptr)
+        temp1->prev->next = temp1->next;
+
+    //free the memory occupied by removed node
+    free(temp1);
+    return;
+
 }
 
 
@@ -177,6 +204,10 @@ void AccountMgr::changeDebt(string change){
     Account* temp = findAccount(nameChoice);
     temp->setAmtOwed(temp->getAmtOwed() - amt);
     updateFile(change, amt, temp);
+
+    if(temp->getAmtOwed() == 0.00){
+      removeAccount(&head, temp->getName());
+    }
 
   }
 }
