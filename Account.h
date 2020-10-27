@@ -16,6 +16,7 @@ public:
   Account();
   Account(string name, double amt);
   Account* next;
+  Account* prev;
 
   //Getter functions
   string getName();

@@ -7,10 +7,10 @@
 
 #include "Account.cpp"
 
+//Controls data structure
 class AccountMgr{
 private:
   Account* head;
-  Account* tail;
 public:
 
   void updateFile(string change, double amt, Account* acct);

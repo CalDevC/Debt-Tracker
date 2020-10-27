@@ -92,6 +92,7 @@ void AccountMgr::import(){
 void AccountMgr::addAccount(string n, double x){
   if(head == nullptr){
     head = new Account(n, x);
+    head->prev = nullptr;
     updateFile("new", 0, head);
   }
   else{
@@ -100,6 +101,7 @@ void AccountMgr::addAccount(string n, double x){
       temp = temp->next;
     }
     temp->next = new Account(n, x);
+    temp->prev = temp;
     updateFile("new", 0, temp->next);
   }
 }
