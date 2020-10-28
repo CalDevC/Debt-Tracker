@@ -10,8 +10,6 @@ int main(){
 
   mgr->import();  //Import the current list saved in debtList.txt
 
-  startSave();  //Title for debtUpdates.txt
-
   //Loop menu choices until user decides to quit
   while(input != "q" && input != "Q"){
 
@@ -52,6 +50,7 @@ int main(){
       }
 
       mgr->addAccount(name, amt);
+      mgr->updateFile("new", 0, mgr->findAccount(name));
       clearScreen();
 
     }
@@ -83,5 +82,3 @@ mgr->finishSave();
 }
 
 //=====TO-DO=====
-//Make update file not repeat by calling in main and not in newAccount fxn
-//Add update file functionality for removing accounts

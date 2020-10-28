@@ -28,18 +28,3 @@ void stall(){
 void clearScreen(){
   system("clear");
 }
-
-void startSave(){
-  fstream myFile("debtUpdates.txt", ios::out | ios::app);
-  if(myFile.is_open()){
-
-    myFile << "Update from " << __DATE__ << ": " << endl;
-
-    myFile.close();
-
-  }
-  else{
-    clearScreen();
-    cout << "Could not open file debtUpdates.txt. Data not saved." << endl;
-  }
-}

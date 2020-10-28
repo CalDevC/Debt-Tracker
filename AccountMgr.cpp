@@ -11,18 +11,22 @@ void AccountMgr::updateFile(string change, double amt, Account* acct){
 
   //Adding debt
     if(change == "add"){
-      myFile << fixed << setprecision(2) << __TIME__ << ": Added " << amt << " to " << acct->getName() << "'s debt for a total of $" << acct->getAmtOwed() << endl;
+      myFile << fixed << setprecision(2) << __DATE__ << " - " << __TIME__ << ": Added " << amt << " to " << acct->getName() << "'s debt for a total of $" << acct->getAmtOwed() << endl;
 
     }
   //Removing debt
     else if(change == "remove"){
-      myFile << fixed << setprecision(2) << __TIME__ << ": Removed " << amt << " to " << acct->getName() << "'s debt for a total of $" << acct->getAmtOwed() << endl;
+      myFile << fixed << setprecision(2) << __DATE__ << " - " << __TIME__ << ": Removed " << amt << " from " << acct->getName() << "'s debt for a total of $" << acct->getAmtOwed() << endl;
 
     }
   //New account added
     else if(change == "new"){
-      myFile << fixed << setprecision(2) << __TIME__ << ": Account created for " << acct->getName() << " with a debt of $" << acct->getAmtOwed() << endl;
+      myFile << fixed << setprecision(2) << __DATE__ << " - " << __TIME__ << ": Account created for " << acct->getName() << " with a debt of $" << acct->getAmtOwed() << endl;
 
+    }
+  //Account Deleted
+    else if(change == "delete"){
+      myFile << fixed << setprecision(2) << __DATE__ << " - " << __TIME__ << ": Account deleted for " << acct->getName() << endl;
     }
 
     myFile.close();
@@ -93,7 +97,7 @@ void AccountMgr::addAccount(string n, double x){
   if(head == nullptr){
     head = new Account(n, x);
     head->prev = nullptr;
-    updateFile("new", 0, head);
+    //updateFile("new", 0, head);
   }
   else{
     Account* temp = head;
@@ -102,7 +106,7 @@ void AccountMgr::addAccount(string n, double x){
     }
     temp->next = new Account(n, x);
     temp->next->prev = temp;
-    updateFile("new", 0, temp->next);
+    //updateFile("new", 0, temp->next);
   }
 }
 
@@ -127,9 +131,9 @@ void AccountMgr::removeAccount(Account** head_ref, string n){
     if (temp1->prev != nullptr)
         temp1->prev->next = temp1->next;
 
-    //free the memory occupied by removed node
-    free(temp1);
-    numAccounts--;
+    updateFile("delete", 0, temp1);
+    free(temp1);  //free the memory occupied by removed node
+    numAccounts--;  //Deincrement number of accounts
     return;
 
 }
