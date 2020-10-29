@@ -81,7 +81,7 @@ void AccountMgr::import(){
     }
 
     while (myFile >> name >> amt) {
-      AccountMgr::addAccount(name, amt);
+      AccountMgr::addAccountToList(name, amt);
     }
 
   }
@@ -93,7 +93,7 @@ void AccountMgr::import(){
 }
 
 /// Add the new node to the end of the list
-void AccountMgr::addAccount(string n, double x){
+void AccountMgr::addAccountToList(string n, double x){
   if(head == nullptr){
     head = new Account(n, x);
     head->prev = nullptr;
@@ -108,6 +108,40 @@ void AccountMgr::addAccount(string n, double x){
     temp->next->prev = temp;
     //updateFile("new", 0, temp->next);
   }
+}
+
+
+void AccountMgr::createAccount(){
+  string name;
+  double amt;
+
+  cout << "Enter a name for the account: ";
+  cin.ignore(1000,'\n');
+  getline(cin, name);
+
+  //Check if name already exists if there are other accounts
+  if (numAccounts != 0){
+    while(findAccount(name) != nullptr){
+      cout << "An account with this name already exists." << endl << "Please enter a different name." << endl;
+
+      getline(cin, name);
+
+    }
+  }
+
+  cout << "Enter the amount of debt to apply to the account: ";
+  cin >> amt;
+
+  while(cin.fail()){  //Validate Input
+    cin.clear(); //reset failbit
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin >> amt;
+    cout << "This must be a numeric value. Enter the amount of debt to apply to the account: ";
+  }
+
+  addAccountToList(name, amt);
+  updateFile("new", 0, findAccount(name));
+  clearScreen();
 }
 
 
@@ -176,7 +210,17 @@ void AccountMgr::display(){
 }
 
 
-void AccountMgr::displayAccount(){
+void AccountMgr::displayAccount(Account* temp){
+  cout << "Name\t\tAmount Owed" << endl
+       << "===================================" << endl
+       << fixed << setprecision(2)
+       << temp->getName() << "\t\t$" << temp->getAmtOwed() << endl;
+
+  stall2();
+}
+
+
+void AccountMgr::searchByName(){
   //Clear screen
   clearScreen();
 
@@ -195,12 +239,7 @@ void AccountMgr::displayAccount(){
     return;
   }
   else{ //Display account
-    cout << "Name\t\tAmount Owed" << endl
-         << "===================================" << endl
-         << fixed << setprecision(2)
-         << temp->getName() << "\t\t$" << temp->getAmtOwed() << endl;
-
-    stall2();
+    displayAccount(temp);
   }
 }
 
@@ -231,6 +270,7 @@ void AccountMgr::changeDebt(string change){
     Account* temp = findAccount(nameChoice);
     temp->setAmtOwed(temp->getAmtOwed() + amt);
     updateFile(change, amt, temp);
+    clearScreen();
 
   }
   //Removing debt
@@ -245,6 +285,8 @@ void AccountMgr::changeDebt(string change){
     if(temp->getAmtOwed() == 0.00){
       removeAccount(&head, temp->getName());
     }
+
+    clearScreen();
 
   }
 }
