@@ -17,8 +17,9 @@ int main(){
     cin >> input;
 
     if(input == "1"){
+
       mgr->display();
-      stall();
+      
     }
     else if(input == "2"){
 
@@ -66,6 +67,11 @@ int main(){
       clearScreen();
 
     }
+    else if(input == "5"){
+
+      mgr->displayAccount();
+
+    }
     else if(input == "q" || input == "Q"){
       //Do nothing but prevent display of "Invalid menu choice"
     }
@@ -82,3 +88,6 @@ mgr->finishSave();
 }
 
 //=====TO-DO=====
+//5th option to check debt for a certain name
+//Sort function
+//Abstraction for option 2 in main

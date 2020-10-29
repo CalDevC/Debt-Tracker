@@ -16,5 +16,6 @@ int numAccounts = 0;
 void displayMenu();
 void clearScreen();
 void stall();
+void stall2();
 
 #endif

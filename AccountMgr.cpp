@@ -161,6 +161,7 @@ void AccountMgr::display(){
 
   if(numAccounts == 0){ //Handle if no accounts
     cout << "No accounts to display." << endl;
+    stall();
   }
   else{
     Account* temp = head;
@@ -169,6 +170,37 @@ void AccountMgr::display(){
       cout << fixed << setprecision(2) << temp->getName() << "\t\t$" << temp->getAmtOwed() << endl;
       temp = temp->next;
     }
+
+    stall();
+  }
+}
+
+
+void AccountMgr::displayAccount(){
+  //Clear screen
+  clearScreen();
+
+  string name;
+
+  cout << "Enter a name to search for (case sensitive): ";
+  cin.ignore(1000,'\n');
+  getline(cin, name);
+
+  Account* temp = findAccount(name);
+
+  //Check to see if account name exists
+  if(temp == nullptr){
+    cout << "An account with this name does not exist." << endl;
+    stall2();
+    return;
+  }
+  else{ //Display account
+    cout << "Name\t\tAmount Owed" << endl
+         << "===================================" << endl
+         << fixed << setprecision(2)
+         << temp->getName() << "\t\t$" << temp->getAmtOwed() << endl;
+
+    stall2();
   }
 }
 
