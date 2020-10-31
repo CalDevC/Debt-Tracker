@@ -18,6 +18,7 @@ int main(){
 
     if(input == "1"){
       mgr->display();
+      stall();
     }
 
     else if(input == "2"){
@@ -52,4 +53,5 @@ mgr->finishSave();
 
 //=====TO-DO=====
 //Sort function
-//Abstraction for option 2 in main
+//free memory for entire list when program ends to solve leak
+//calling updateFile with temp2 when adding account causes segmentation fault

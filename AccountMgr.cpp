@@ -97,7 +97,6 @@ void AccountMgr::addAccountToList(string n, double x){
   if(head == nullptr){
     head = new Account(n, x);
     head->prev = nullptr;
-    //updateFile("new", 0, head);
   }
   else{
     Account* temp = head;
@@ -106,7 +105,6 @@ void AccountMgr::addAccountToList(string n, double x){
     }
     temp->next = new Account(n, x);
     temp->next->prev = temp;
-    //updateFile("new", 0, temp->next);
   }
 }
 
@@ -114,6 +112,7 @@ void AccountMgr::addAccountToList(string n, double x){
 void AccountMgr::createAccount(){
   string name;
   double amt;
+  Account* temp;
 
   cout << "Enter a name for the account: ";
   cin.ignore(1000,'\n');
@@ -121,12 +120,16 @@ void AccountMgr::createAccount(){
 
   //Check if name already exists if there are other accounts
   if (numAccounts != 0){
-    while(findAccount(name) != nullptr){
+    temp = findAccount(name);
+
+    while(temp != nullptr){
       cout << "An account with this name already exists." << endl << "Please enter a different name." << endl;
 
       getline(cin, name);
+      temp = findAccount(name);
 
     }
+
   }
 
   cout << "Enter the amount of debt to apply to the account: ";
@@ -140,7 +143,8 @@ void AccountMgr::createAccount(){
   }
 
   addAccountToList(name, amt);
-  updateFile("new", 0, findAccount(name));
+  temp = findAccount(name);
+  updateFile("new", 0, temp);
   clearScreen();
 }
 
@@ -174,7 +178,7 @@ void AccountMgr::removeAccount(Account** head_ref, string n){
 
 
 Account* AccountMgr::findAccount(string nameChoice){
-  Account* temp = new Account;
+  Account* temp;
   temp = head;
 
   while(temp->getName() != nameChoice){
@@ -195,7 +199,6 @@ void AccountMgr::display(){
 
   if(numAccounts == 0){ //Handle if no accounts
     cout << "No accounts to display." << endl;
-    stall();
   }
   else{
     Account* temp = head;
@@ -204,8 +207,6 @@ void AccountMgr::display(){
       cout << fixed << setprecision(2) << temp->getName() << "\t\t$" << temp->getAmtOwed() << endl;
       temp = temp->next;
     }
-
-    stall();
   }
 }
 
@@ -254,11 +255,14 @@ void AccountMgr::changeDebt(string change){
   cin.ignore(1000,'\n');
   getline(cin, nameChoice);
 
+  Account* temp = findAccount(nameChoice);
+
   //Check to see if account name exists
-  while(AccountMgr::findAccount(nameChoice) == nullptr){
+  while(temp == nullptr){
     cout << "An account with this name does not exist." << endl << "Please enter a name from the list." << endl;
 
     getline(cin, nameChoice);
+    temp = findAccount(nameChoice);
 
   }
 
