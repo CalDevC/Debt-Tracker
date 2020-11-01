@@ -11,6 +11,7 @@
 class AccountMgr{
 private:
   Account* head;
+  Account* tail;
 public:
 
   ~AccountMgr();  //Destructor

@@ -55,4 +55,3 @@ mgr->~AccountMgr(); //Free list from memory
 //=====TO-DO=====
 //Sort function
 //add end node so list can be accessed at the end
-//make search not case sensitive

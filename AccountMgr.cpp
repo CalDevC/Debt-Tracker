@@ -111,6 +111,7 @@ void AccountMgr::addAccountToList(string n, double x){
     head = new Account(n, x);
     head->prev = nullptr;
     head->next = nullptr;
+    tail = head;
   }
   else{
     Account* temp = head;
@@ -120,6 +121,7 @@ void AccountMgr::addAccountToList(string n, double x){
     temp->next = new Account(n, x);
     temp->next->next = nullptr;
     temp->next->prev = temp;
+    tail = temp->next;
   }
 }
 
