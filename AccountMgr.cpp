@@ -3,6 +3,7 @@
 //MacOS Version (Bash)
 
 #include"AccountMgr.h"
+
 using namespace std;
 
 AccountMgr::~AccountMgr(){
@@ -192,15 +193,20 @@ void AccountMgr::removeAccount(Account** head_ref, string n){
 
 
 Account* AccountMgr::findAccount(string nameChoice){
-  Account* temp;
-  temp = head;
+  Account* temp = head;
+  string tempName = makeLowerCase(temp->getName());
 
-  while(temp->getName() != nameChoice){
+  //Make nameChoice all lowercase
+  nameChoice = makeLowerCase(nameChoice);
+
+  while(tempName != nameChoice){
     temp = temp->next;
 
     if(temp == nullptr){
       return nullptr;
     }
+
+    tempName = makeLowerCase(temp->getName());
   }
 
   return temp;
@@ -241,7 +247,7 @@ void AccountMgr::searchByName(){
 
   string name;
 
-  cout << "Enter a name to search for (case sensitive): ";
+  cout << "Enter a name to search for: ";
   cin.ignore(1000,'\n');
   getline(cin, name);
 

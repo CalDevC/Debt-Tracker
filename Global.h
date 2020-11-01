@@ -15,6 +15,7 @@ int numAccounts = 0;
 //Template functions
 void displayMenu();
 void clearScreen();
+string makeLowerCase(); //Converts a string to all lowercase
 void stall();
 void stall2();
 

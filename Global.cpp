@@ -19,6 +19,11 @@ void displayMenu(){
        << "Enter a choice from the list: "       << endl;
 }
 
+string makeLowerCase(string s){
+  transform(s.begin(), s.end(), s.begin(), ::tolower);
+  return s;
+}
+
 void stall(){
   cout << "Press enter to continue..." << endl;
   cin.ignore(1000, '\n');
