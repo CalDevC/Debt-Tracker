@@ -48,10 +48,11 @@ int main(){
   }
 
 mgr->finishSave();
+mgr->~AccountMgr(); //Free list from memory
 
 }
 
 //=====TO-DO=====
 //Sort function
-//free memory for entire list when program ends to solve leak
-//calling updateFile with temp2 when adding account causes segmentation fault
+//add end node so list can be accessed at the end
+//make search not case sensitive

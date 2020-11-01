@@ -13,6 +13,8 @@ private:
   Account* head;
 public:
 
+  ~AccountMgr();  //Destructor
+
   void updateFile(string change, double amt, Account* acct);  //Save debt to debtList.txt
   void finishSave();  //Get info from debtList.txt
   void import();

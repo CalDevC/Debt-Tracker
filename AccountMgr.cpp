@@ -5,6 +5,18 @@
 #include"AccountMgr.h"
 using namespace std;
 
+AccountMgr::~AccountMgr(){
+  Account* currentNode = head;
+  Account* nextNode;
+
+  while (currentNode != nullptr) {
+    nextNode = currentNode->next;
+    free(currentNode);
+    currentNode = nextNode;
+  }
+
+}
+
 void AccountMgr::updateFile(string change, double amt, Account* acct){
   fstream myFile("debtUpdates.txt", ios::out | ios::app);
   if(myFile.is_open()){
@@ -97,6 +109,7 @@ void AccountMgr::addAccountToList(string n, double x){
   if(head == nullptr){
     head = new Account(n, x);
     head->prev = nullptr;
+    head->next = nullptr;
   }
   else{
     Account* temp = head;
@@ -104,6 +117,7 @@ void AccountMgr::addAccountToList(string n, double x){
       temp = temp->next;
     }
     temp->next = new Account(n, x);
+    temp->next->next = nullptr;
     temp->next->prev = temp;
   }
 }
