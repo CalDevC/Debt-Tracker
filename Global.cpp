@@ -14,6 +14,7 @@ void displayMenu(){
        << "   3 - Add debt to an account"        << endl
        << "   4 - Remove debt from an account"   << endl
        << "   5 - Search for an account"         << endl
+       << "   6 - Sort list of accounts"         << endl
        << "   q - Quit"                          << endl
        << "==================================="  << endl
        << "Enter a choice from the list: "       << endl;

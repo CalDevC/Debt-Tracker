@@ -1,3 +1,10 @@
+//
+//  AccountMgr.h
+//  debtTracker
+//
+//  Created by Chase Alexander on 11/1/20.
+//  Copyright © 2020 CalDevC. All rights reserved.
+//
 //Debt Tracker
 //Author: Chase Alexander
 //MacOS Version (Bash)
@@ -9,7 +16,7 @@
 
 //Controls data structure
 class AccountMgr{
-protected:
+private:
   Account* head;
   Account* tail;
 public:
@@ -26,17 +33,11 @@ public:
   Account* findAccount(string nameChoice);
   void changeDebt(string change);
 
-  void sortList();
-  void quickSort(string op);
-  void _quickSort(Account* l, Account* h, string op);
-  Account* partition(Account* l, Account* h, string op);
-  void swap(Account* a, Account* b);
-
   void display();
   void displayAccount(Account*);  //Search for and display a certain Account
   void searchByName();
-  void displaySortOptions();
 
 };
 
 #endif
+

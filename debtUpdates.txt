@@ -1,0 +1,30 @@
+Oct 31 2020 - 18:46:21: Removed 3.00 from s's debt for a total of $0.00
+Oct 31 2020 - 18:46:21: Account deleted for s
+Oct 31 2020 - 18:46:21: Removed 5.00 from h's debt for a total of $0.00
+Oct 31 2020 - 18:46:21: Account deleted for h
+Oct 31 2020 - 18:47:02: Removed 3.00 from s's debt for a total of $0.00
+Oct 31 2020 - 18:47:02: Account deleted for s
+Oct 31 2020 - 18:47:02: Removed 5.00 from h's debt for a total of $0.00
+Oct 31 2020 - 18:47:02: Account deleted for h
+Oct 31 2020 - 18:47:02: Removed 5.00 from sh's debt for a total of $0.00
+Oct 31 2020 - 18:47:02: Account deleted for sh
+Oct 31 2020 - 18:56:28: Account created for shay with a debt of $3.00
+Oct 31 2020 - 18:56:28: Added 4.00 to shay's debt for a total of $7.00
+Oct 31 2020 - 18:56:28: Removed 4.00 from shay's debt for a total of $3.00
+Oct 31 2020 - 18:56:28: Removed 3.00 from shay's debt for a total of $0.00
+Oct 31 2020 - 18:56:28: Account deleted for shay
+Oct 31 2020 - 19:00:26: Account created for jay with a debt of $5.00
+Oct 31 2020 - 19:00:26: Added 3.00 to jay's debt for a total of $8.00
+Oct 31 2020 - 19:00:26: Removed 3.00 from jay's debt for a total of $5.00
+Oct 31 2020 - 19:00:26: Removed 5.00 from jay's debt for a total of $0.00
+Oct 31 2020 - 19:00:26: Account deleted for jay
+Oct 31 2020 - 19:26:52: Added 100.00 to Dad's debt for a total of $400.00
+Oct 31 2020 - 19:26:52: Added 100.00 to Dad's debt for a total of $500.00
+Oct 31 2020 - 19:47:31: Account created for sophia with a debt of $4.00
+Oct 31 2020 - 19:47:31: Added 3.00 to sophia's debt for a total of $7.00
+Oct 31 2020 - 19:47:31: Removed 7.00 from sophia's debt for a total of $0.00
+Oct 31 2020 - 19:47:31: Account deleted for sophia
+Nov  1 2020 - 15:21:23: Account created for ma with a debt of $5.00
+Nov  1 2020 - 15:21:23: Added 5.00 to ma's debt for a total of $10.00
+Nov  1 2020 - 15:21:23: Removed 10.00 from ma's debt for a total of $0.00
+Nov  1 2020 - 15:21:23: Account deleted for ma

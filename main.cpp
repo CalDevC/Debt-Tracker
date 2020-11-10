@@ -37,6 +37,10 @@ int main(){
       mgr->searchByName();
     }
 
+    else if(input == "6"){
+      mgr->sortList();
+    }
+
     else if(input == "q" || input == "Q"){
       //Do nothing but prevent display of "Invalid menu choice"
     }
@@ -54,4 +58,4 @@ mgr->~AccountMgr(); //Free list from memory
 
 //=====TO-DO=====
 //Sort function
-//add end node so list can be accessed at the end
+//Sort funtion is made for list that adds to the top??

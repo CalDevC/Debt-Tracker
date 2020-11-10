@@ -232,6 +232,17 @@ void AccountMgr::display(){
   }
 }
 
+void AccountMgr::displaySortOptions(){
+  clearScreen();
+  cout << "============ Sort List ============"  << endl
+       << "   1 - Greatest to Least"             << endl
+       << "   2 - Least to Greatest"             << endl
+       << "   3 - Alphabetically"                << endl
+       << "   r - return to main menu"           << endl
+       << "==================================="  << endl
+       << "Enter a choice from the list: "       << endl;
+}
+
 
 void AccountMgr::displayAccount(Account* temp){
   cout << "Name\t\tAmount Owed" << endl
@@ -315,4 +326,128 @@ void AccountMgr::changeDebt(string change){
     clearScreen();
 
   }
+}
+
+
+void AccountMgr::sortList(){
+  while(input != "r" && input != "R"){
+
+    displaySortOptions();
+    cin >> input;
+
+    if(input == "1"){
+      clearScreen();
+      return;
+    }
+
+    else if(input == "2"){
+      quickSort("L->G");
+      clearScreen();
+      return;
+    }
+
+    else if(input == "3"){
+      return;
+    }
+
+    else if(input == "r" || input == "R"){
+      clearScreen();
+      //prevent display of "Invalid menu choice"
+    }
+
+    else{ //Base Case
+      clearScreen();
+      cout << "Invalid menu choice.\n\n";
+    }
+  }
+}
+
+
+void AccountMgr::swap(Account* a, Account* b){
+  Account **p1pn;            /* & a->prev->next */
+  Account **p1np;            /* & a->next->prev */
+  Account **p2pn;            /* & b->prev->next */
+  Account **p2np;            /* & b->next->prev */
+  Account *tail;             /* only used when x->next == nullptr */
+  Account *temp;             /* temp */
+
+  if(head == nullptr || a == nullptr || b == nullptr || a == b)
+    return;
+
+  if(head == a)
+    p1pn = &head;
+  else
+    p1pn = &a->prev->next;
+
+  if(head == b)
+    p2pn = &head;
+  else
+    p2pn = &b->prev->next;
+
+  if(a->next == nullptr){
+    p1np = &tail;
+    tail = a;
+  }
+  else{
+    p1np = &a->next->prev;
+  }
+
+  if(b->next == nullptr){
+    p2np = &tail;
+    tail = b;
+  }
+  else{
+    p2np = &b->next->prev;
+  }
+
+  *p1pn = b;
+  *p1np = b;
+  *p2pn = a;
+  *p2np = a;
+
+  temp = a->prev;
+  a->prev = b->prev;
+  b->prev = temp;
+
+  temp = a->next;
+  a->next = b->next;
+  b->next = temp;
+
+}
+
+/* Arrange all the elements of the linked list as per the pivot element */
+Account* AccountMgr::partition(Account* l, Account* h, string op){
+  // set h element as pivot
+  double x = h->getAmtOwed();
+  Account* i = l->prev;
+
+  // Similar to from j=l to h-1
+  for(Account* j = l; j != h; j = j->next){
+    if(op == "L->G"){
+      if (j->getAmtOwed() <= x){
+          // Similar to i++
+          i = (i == nullptr)? l : i->next;
+          swap(i, j);
+      }
+    }
+
+  }
+
+  i = (i == nullptr)? l : i->next;
+  swap(i, h);
+  return i;
+}
+
+/* Recursive implementation of quicksort for linked list */
+void AccountMgr::_quickSort(Account* l, Account* h, string op){
+  if(h != nullptr && l != nullptr && l != h && l != h->next){
+      Account* p = partition(l, h, op);
+      _quickSort(l, p->prev, op);
+      _quickSort(p->next, h, op);
+  }
+
+}
+
+void AccountMgr::quickSort(string op){
+  _quickSort(head, tail, op);
 }
