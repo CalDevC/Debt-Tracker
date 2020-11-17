@@ -232,11 +232,12 @@ void AccountMgr::display(){
   }
 }
 
+
 void AccountMgr::displaySortOptions(){
   clearScreen();
   cout << "============ Sort List ============"  << endl
-       << "   1 - Greatest to Least"             << endl
-       << "   2 - Least to Greatest"             << endl
+       << "   1 - Least to Greatest"             << endl
+       << "   2 - Greatest to Least"             << endl
        << "   3 - Alphabetically"                << endl
        << "   r - return to main menu"           << endl
        << "==================================="  << endl
@@ -336,17 +337,20 @@ void AccountMgr::sortList(){
     cin >> input;
 
     if(input == "1"){
+      bubbleSort("L->G");
       clearScreen();
       return;
     }
 
     else if(input == "2"){
-      quickSort("L->G");
+      bubbleSort("G->L");
       clearScreen();
       return;
     }
 
     else if(input == "3"){
+      bubbleSort("name");
+      clearScreen();
       return;
     }
 
@@ -362,14 +366,73 @@ void AccountMgr::sortList(){
   }
 }
 
+void AccountMgr::bubbleSort(string type){
+    if(numAccounts >= 2){
+      for(int i = 0; i < numAccounts; i++){
 
+      Account* temp1 = head;
+      Account* temp2 = head->next;
+
+      while(temp1->next != nullptr ){
+
+        //Change condition of if staement depending on how the list should be sorted
+        if(getSortType(type, temp1, temp2)){
+          swap(temp1, temp2);
+          temp1 = temp2;
+          temp2 = temp1->next;
+        }
+        else{
+          temp1 = temp2;
+          temp2 = temp1->next;
+        }
+
+      }
+    }
+  }
+  else{
+    return;
+  }
+}
+
+bool AccountMgr::getSortType(string type, Account* temp1, Account* temp2){
+
+  bool sortType;
+
+  if(type == "L->G"){
+    sortType = temp1->getAmtOwed() > temp2->getAmtOwed();
+  }
+  else if(type == "G->L"){
+    sortType = temp1->getAmtOwed() < temp2->getAmtOwed();
+  }
+  else if(type == "name"){
+    sortType = makeLowerCase(temp1->getName()) > makeLowerCase(temp2->getName());
+  }
+
+  return sortType;
+}
+
+/* Swap function that swaps data
 void AccountMgr::swap(Account* a, Account* b){
-  Account **p1pn;            /* & a->prev->next */
-  Account **p1np;            /* & a->next->prev */
-  Account **p2pn;            /* & b->prev->next */
-  Account **p2np;            /* & b->next->prev */
-  Account *tail;             /* only used when x->next == nullptr */
-  Account *temp;             /* temp */
+  Account* temp;
+  temp->setName(a->getName());
+  temp->setAmtOwed(a->getAmtOwed());
+
+  a->setName(b->getName());
+  a->setAmtOwed(b->getAmtOwed());
+
+  b->setName(temp->getName());
+  b->setAmtOwed(temp->getAmtOwed());
+
+}*/
+
+//Swap function that swaps nodes
+void AccountMgr::swap(Account* a, Account* b){
+  Account **p1pn;            // & a->prev->next
+  Account **p1np;            // & a->next->prev
+  Account **p2pn;            // & b->prev->next
+  Account **p2np;            // & b->next->prev
+  Account *tail;             // only used when x->next == nullptr
+  Account *temp;             // temp
 
   if(head == nullptr || a == nullptr || b == nullptr || a == b)
     return;
@@ -415,39 +478,51 @@ void AccountMgr::swap(Account* a, Account* b){
 
 }
 
-/* Arrange all the elements of the linked list as per the pivot element */
-Account* AccountMgr::partition(Account* l, Account* h, string op){
-  // set h element as pivot
-  double x = h->getAmtOwed();
-  Account* i = l->prev;
 
-  // Similar to from j=l to h-1
-  for(Account* j = l; j != h; j = j->next){
-    if(op == "L->G"){
-      if (j->getAmtOwed() <= x){
-          // Similar to i++
-          i = (i == nullptr)? l : i->next;
-          swap(i, j);
+/*  QUICKSORT FUNCTIONS (NOT WORKING)
+//Arrange all the elements of the linked list as per the pivot element
+Account* AccountMgr::partition(Account* l, Account* h){
+
+  // set pivot as h element
+    double x = h->getAmtOwed();
+
+    // similar to i = l-1 for array implementation
+    Account *i = l->prev;
+
+    // Similar to "for (int j = l; j <= h- 1; j++)"
+    for (Account *j = l; j != h; j = j->next){
+
+      if(j == nullptr){
+        break;
       }
+      if (j->getAmtOwed() <= x){
+        // Similar to i++ for array
+        i = (i == NULL)? l : i->next;
+        swap(i, j);
+      }
+
     }
 
+    i = (i == NULL)? l : i->next; // Similar to i++
+    swap(i, h);
+    return i;
+}
+
+void AccountMgr::_quickSort(Account* left, Account* right){
+
+  if (right != nullptr && left != nullptr && left != right && left != right->next){
+    //cout << op << endl;
+    Account* partitionNode = partition(left, right);
+
+    // Separately sort elements before
+    // partition and after partition
+    _quickSort(left, partitionNode->prev);
+    _quickSort(partitionNode->next, right);
   }
 
-  i = (i == nullptr)? l : i->next;
-  swap(i, h);
-  return i;
 }
 
-/* Recursive implementation of quicksort for linked list */
-void AccountMgr::_quickSort(Account* l, Account* h, string op){
-  if(h != nullptr && l != nullptr && l != h && l != h->next){
-      Account* p = partition(l, h, op);
-      _quickSort(l, p->prev, op);
-      _quickSort(p->next, h, op);
-  }
-
+void AccountMgr::quickSort(){
+  _quickSort(head, tail);
 }
-
-void AccountMgr::quickSort(string op){
-  _quickSort(head, tail, op);
-}
+*/

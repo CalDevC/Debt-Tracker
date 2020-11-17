@@ -27,15 +27,20 @@ public:
   void changeDebt(string change);
 
   void sortList();
-  void quickSort(string op);
-  void _quickSort(Account* l, Account* h, string op);
-  Account* partition(Account* l, Account* h, string op);
   void swap(Account* a, Account* b);
+  void bubbleSort(string order);
+  bool getSortType(string type, Account* temp1, Account* temp2);
 
   void display();
   void displayAccount(Account*);  //Search for and display a certain Account
   void searchByName();
   void displaySortOptions();
+
+  /*  QUICKSORT FUNCTIONS (NOT WORKING)
+  void quickSort();
+  void _quickSort(Account* l, Account* h);
+  Account* partition(Account* l, Account* h);
+  */
 
 };
 

@@ -1,6 +1,10 @@
-Last updated Nov  1 2020: 
+Last updated Nov 11 2020: 
 Name		Amount Owed
 ===================================
-Dad		300.00
-Mom		200.00
-Sam		400.00
+Jane		300.00
+Sophia		600.00
+Sam		500.00
+John		400.00
+Joe		900.00
+Jack		800.00
+Sue		700.00
