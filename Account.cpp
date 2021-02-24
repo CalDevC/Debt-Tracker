@@ -3,9 +3,18 @@
 //MacOS Version (Bash)
 
 #include "Account.h"
-#include "Global.cpp"
+#include "Global.h"
 using namespace std;
 
+//Default Constructor
+Account::Account(){
+  name = "unknown";
+  amtOwed = 0.00;
+  next = nullptr;
+  numAccounts++;
+}
+
+//Constructor
 Account::Account(string name, double amt){
   this->name = name;
   amtOwed = amt;
@@ -13,23 +22,21 @@ Account::Account(string name, double amt){
   numAccounts++;
 }
 
-Account::Account(){
-  name = "unknown";
-  amtOwed = 0.00;
-}
-
+//Destructor
 Account::~Account(){}
 
+//Getter Functions
 string Account::getName(){
   return this->name;
 }
 
-void Account::setName(string n){
-  this->name = n;
+double Account::getAmtOwed(){
+  return this->amtOwed;
 }
 
-double Account::getAmtOwed(){
-  return amtOwed;
+//Setter Functions
+void Account::setName(string name){
+  this->name = name;
 }
 
 void Account::setAmtOwed(double amt){

@@ -2,8 +2,9 @@
 //Author: Chase Alexander
 //MacOS Version (Bash)
 
-#include"AccountMgr.h"
-
+#include "AccountMgr.h"
+#include <iomanip>
+#include <fstream>
 using namespace std;
 
 AccountMgr::~AccountMgr(){
@@ -17,6 +18,7 @@ AccountMgr::~AccountMgr(){
   }
 
 }
+
 
 void AccountMgr::updateFile(string change, double amt, Account* acct){
   fstream myFile("debtUpdates.txt", ios::out | ios::app);
@@ -51,7 +53,7 @@ void AccountMgr::updateFile(string change, double amt, Account* acct){
   }
 }
 
-//Save debt to debtList.txt
+
 void AccountMgr::finishSave(){
 
   clearScreen();
@@ -81,6 +83,7 @@ void AccountMgr::finishSave(){
   }
 }
 
+
 //Get info from debtList.txt
 void AccountMgr::import(){
 
@@ -105,12 +108,12 @@ void AccountMgr::import(){
 
 }
 
+
 /// Add the new node to the end of the list
 void AccountMgr::addAccountToList(string n, double x){
   if(head == nullptr){
     head = new Account(n, x);
     head->prev = nullptr;
-    head->next = nullptr;
     tail = head;
   }
   else{
@@ -119,10 +122,12 @@ void AccountMgr::addAccountToList(string n, double x){
       temp = temp->next;
     }
     temp->next = new Account(n, x);
-    temp->next->next = nullptr;
     temp->next->prev = temp;
     tail = temp->next;
   }
+
+  numAccounts++;
+
 }
 
 
@@ -194,91 +199,6 @@ void AccountMgr::removeAccount(Account** head_ref, string n){
 }
 
 
-Account* AccountMgr::findAccount(string nameChoice){
-  Account* temp = head;
-  string tempName = makeLowerCase(temp->getName());
-
-  //Make nameChoice all lowercase
-  nameChoice = makeLowerCase(nameChoice);
-
-  while(tempName != nameChoice){
-    temp = temp->next;
-
-    if(temp == nullptr){
-      return nullptr;
-    }
-
-    tempName = makeLowerCase(temp->getName());
-  }
-
-  return temp;
-}
-
-
-void AccountMgr::display(){
-  //Clear screen
-  clearScreen();
-
-  if(numAccounts == 0){ //Handle if no accounts
-    cout << "No accounts to display." << endl;
-  }
-  else{
-    Account* temp = head;
-    cout << "Name\t\tAmount Owed" << endl << "===================================" << endl;
-    while(temp != nullptr){
-      cout << fixed << setprecision(2) << temp->getName() << "\t\t$" << temp->getAmtOwed() << endl;
-      temp = temp->next;
-    }
-  }
-}
-
-
-void AccountMgr::displaySortOptions(){
-  clearScreen();
-  cout << "============ Sort List ============"  << endl
-       << "   1 - Least to Greatest"             << endl
-       << "   2 - Greatest to Least"             << endl
-       << "   3 - Alphabetically"                << endl
-       << "   r - return to main menu"           << endl
-       << "==================================="  << endl
-       << "Enter a choice from the list: "       << endl;
-}
-
-
-void AccountMgr::displayAccount(Account* temp){
-  cout << "Name\t\tAmount Owed" << endl
-       << "===================================" << endl
-       << fixed << setprecision(2)
-       << temp->getName() << "\t\t$" << temp->getAmtOwed() << endl;
-
-  stall2();
-}
-
-
-void AccountMgr::searchByName(){
-  //Clear screen
-  clearScreen();
-
-  string name;
-
-  cout << "Enter a name to search for: ";
-  cin.ignore(1000,'\n');
-  getline(cin, name);
-
-  Account* temp = findAccount(name);
-
-  //Check to see if account name exists
-  if(temp == nullptr){
-    cout << "An account with this name does not exist." << endl;
-    stall2();
-    return;
-  }
-  else{ //Display account
-    displayAccount(temp);
-  }
-}
-
-
 void AccountMgr::changeDebt(string change){
 
   string nameChoice;
@@ -330,6 +250,51 @@ void AccountMgr::changeDebt(string change){
 }
 
 
+Account* AccountMgr::findAccount(string nameChoice){
+  Account* temp = head;
+  string tempName = makeLowerCase(temp->getName());
+
+  //Make nameChoice all lowercase
+  nameChoice = makeLowerCase(nameChoice);
+
+  while(tempName != nameChoice){
+    temp = temp->next;
+
+    if(temp == nullptr){
+      return nullptr;
+    }
+
+    tempName = makeLowerCase(temp->getName());
+  }
+
+  return temp;
+}
+
+
+void AccountMgr::searchByName(){
+  //Clear screen
+  clearScreen();
+
+  string name;
+
+  cout << "Enter a name to search for: ";
+  cin.ignore(1000,'\n');
+  getline(cin, name);
+
+  Account* temp = findAccount(name);
+
+  //Check to see if account name exists
+  if(temp == nullptr){
+    cout << "An account with this name does not exist." << endl;
+    stall2();
+    return;
+  }
+  else{ //Display account
+    displayAccount(temp);
+  }
+}
+
+
 void AccountMgr::sortList(){
   while(input != "r" && input != "R"){
 
@@ -366,6 +331,7 @@ void AccountMgr::sortList(){
   }
 }
 
+
 void AccountMgr::bubbleSort(string type){
     if(numAccounts >= 2){
       for(int i = 0; i < numAccounts; i++){
@@ -394,6 +360,7 @@ void AccountMgr::bubbleSort(string type){
   }
 }
 
+
 bool AccountMgr::getSortType(string type, Account* temp1, Account* temp2){
 
   bool sortType;
@@ -411,21 +378,7 @@ bool AccountMgr::getSortType(string type, Account* temp1, Account* temp2){
   return sortType;
 }
 
-/* Swap function that swaps data
-void AccountMgr::swap(Account* a, Account* b){
-  Account* temp;
-  temp->setName(a->getName());
-  temp->setAmtOwed(a->getAmtOwed());
 
-  a->setName(b->getName());
-  a->setAmtOwed(b->getAmtOwed());
-
-  b->setName(temp->getName());
-  b->setAmtOwed(temp->getAmtOwed());
-
-}*/
-
-//Swap function that swaps nodes
 void AccountMgr::swap(Account* a, Account* b){
   Account **p1pn;            // & a->prev->next
   Account **p1np;            // & a->next->prev
@@ -479,50 +432,41 @@ void AccountMgr::swap(Account* a, Account* b){
 }
 
 
-/*  QUICKSORT FUNCTIONS (NOT WORKING)
-//Arrange all the elements of the linked list as per the pivot element
-Account* AccountMgr::partition(Account* l, Account* h){
+void AccountMgr::display(){
+  //Clear screen
+  clearScreen();
 
-  // set pivot as h element
-    double x = h->getAmtOwed();
-
-    // similar to i = l-1 for array implementation
-    Account *i = l->prev;
-
-    // Similar to "for (int j = l; j <= h- 1; j++)"
-    for (Account *j = l; j != h; j = j->next){
-
-      if(j == nullptr){
-        break;
-      }
-      if (j->getAmtOwed() <= x){
-        // Similar to i++ for array
-        i = (i == NULL)? l : i->next;
-        swap(i, j);
-      }
-
-    }
-
-    i = (i == NULL)? l : i->next; // Similar to i++
-    swap(i, h);
-    return i;
-}
-
-void AccountMgr::_quickSort(Account* left, Account* right){
-
-  if (right != nullptr && left != nullptr && left != right && left != right->next){
-    //cout << op << endl;
-    Account* partitionNode = partition(left, right);
-
-    // Separately sort elements before
-    // partition and after partition
-    _quickSort(left, partitionNode->prev);
-    _quickSort(partitionNode->next, right);
+  if(numAccounts == 0){ //Handle if no accounts
+    cout << "No accounts to display." << endl;
   }
-
+  else{
+    Account* temp = head;
+    cout << "Name\t\tAmount Owed" << endl << "===================================" << endl;
+    while(temp != nullptr){
+      cout << fixed << setprecision(2) << temp->getName() << "\t\t$" << temp->getAmtOwed() << endl;
+      temp = temp->next;
+    }
+  }
 }
 
-void AccountMgr::quickSort(){
-  _quickSort(head, tail);
+
+void AccountMgr::displayAccount(Account* temp){
+  cout << "Name\t\tAmount Owed" << endl
+       << "===================================" << endl
+       << fixed << setprecision(2)
+       << temp->getName() << "\t\t$" << temp->getAmtOwed() << endl;
+
+  stall2();
 }
-*/
+
+
+void AccountMgr::displaySortOptions(){
+  clearScreen();
+  cout << "============ Sort List ============"  << endl
+       << "   1 - Least to Greatest"             << endl
+       << "   2 - Greatest to Least"             << endl
+       << "   3 - Alphabetically"                << endl
+       << "   r - return to main menu"           << endl
+       << "==================================="  << endl
+       << "Enter a choice from the list: "       << endl;
+}

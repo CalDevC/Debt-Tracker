@@ -2,7 +2,7 @@
 //Author: Chase Alexander
 //MacOS Version (Bash)
 
-#include"AccountMgr.cpp"
+#include"AccountMgr.h"
 
 int main(){
 
@@ -57,5 +57,3 @@ mgr->~AccountMgr(); //Free list from memory
 }
 
 //=====TO-DO=====
-//Sort function
-//Sort funtion is made for list that adds to the top??

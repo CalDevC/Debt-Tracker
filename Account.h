@@ -6,17 +6,21 @@
 #define ACCOUNT_H
 
 #include <iostream>
+#include "Global.h"
 using namespace std;
 
 class Account{
 private:
+  //Private Variables
   string name;
   double amtOwed;
 public:
+  //Constructors and destructors
   Account();
   Account(string name, double amt);
   ~Account();
 
+  //Public Variables
   Account* next;
   Account* prev;
 
